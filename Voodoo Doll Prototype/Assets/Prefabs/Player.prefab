@@ -908,6 +908,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Needle
       objectReference: {fileID: 0}
+    - target: {fileID: 4776905936190012897, guid: 49509bd55482e5b4a8a59702a3623dc7, type: 3}
+      propertyPath: needleHolder
+      value: 
+      objectReference: {fileID: 8691343252479041752}
     - target: {fileID: 6615899253915092534, guid: 49509bd55482e5b4a8a59702a3623dc7, type: 3}
       propertyPath: m_RootOrder
       value: 5

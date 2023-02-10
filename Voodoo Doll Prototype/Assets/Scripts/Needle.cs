@@ -9,7 +9,7 @@ public class Needle : MonoBehaviour
 
     public Transform throwPoint, tetherPoint, needleHolder;
     Quaternion needleStartRotation;
-    [SerializeField] float throwForce, recallSpeed, recallDistance;
+    [SerializeField] float throwForce, recallSpeed, recallDistance, startTime;
 
     [SerializeField] bool needleThrown, recallingNeedle;
 
@@ -30,35 +30,36 @@ public class Needle : MonoBehaviour
         transform.position = needleHolder.position;
         needleStartRotation = transform.rotation;
 
+        startTime = 0;
+
         needleThrown = false;
+        recallingNeedle = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Mouse0) && !needleThrown)
+        if(Input.GetKeyDown(KeyCode.Mouse0))
         {
             if (!needleThrown)
             {
                 ThrowNeedle();
-            }           
-        }
-        else if(Input.GetKeyDown(KeyCode.Mouse0) && needleThrown)
-        {
-            recallingNeedle = true;
+            }  
+            else if(needleThrown)
+            {
+                recallingNeedle = true;
+            }
         }
 
-        if(recallingNeedle)
+        if (recallingNeedle)
         {
             recallDistance = Vector3.Distance(transform.position, throwPoint.position);
-            if (recallDistance > 0)
-            {
-                RecallNeedle();
-            }
+            Debug.Log("Recall Distance: " + recallDistance);
 
-            if(recallDistance < 35)
+            RecallNeedle();
+
+            if(recallDistance < 1)
             {
-                recallingNeedle = false;
                 ResetNeedle();
             }
         }
@@ -88,11 +89,15 @@ public class Needle : MonoBehaviour
     {
         rb.isKinematic = false;
 
-        transform.position = Vector3.Lerp(transform.position, throwPoint.position, recallSpeed);
+        float distanceCovered = (Time.time - startTime) * recallSpeed;
+        float smoothing = distanceCovered / recallDistance;
+        transform.position = Vector3.Lerp(transform.position, throwPoint.position, smoothing);
     }
 
     void ResetNeedle()
     {
+        recallingNeedle = false;
+
         transform.parent = needleHolder;
         transform.position = needleHolder.position;
         transform.rotation = needleStartRotation;
