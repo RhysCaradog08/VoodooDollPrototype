@@ -9,7 +9,8 @@ public class Needle : MonoBehaviour
 
     public Transform throwPoint, tetherPoint, needleHolder;
     Quaternion needleStartRotation;
-    [SerializeField] float throwForce, recallSpeed, recallDistance, startTime;
+    [SerializeField] float throwDistance, throwForce, recallSpeed, recallDistance, startTime;
+    public LayerMask ignoreLayer;
 
     [SerializeField] bool needleThrown, recallingNeedle;
 
@@ -45,7 +46,7 @@ public class Needle : MonoBehaviour
             {
                 ThrowNeedle();
             }  
-            else if(needleThrown)
+            else if(needleThrown && rb.isKinematic)
             {
                 recallingNeedle = true;
             }
@@ -54,7 +55,7 @@ public class Needle : MonoBehaviour
         if (recallingNeedle)
         {
             recallDistance = Vector3.Distance(transform.position, throwPoint.position);
-            Debug.Log("Recall Distance: " + recallDistance);
+            //Debug.Log("Recall Distance: " + recallDistance);
 
             RecallNeedle();
 
@@ -77,9 +78,21 @@ public class Needle : MonoBehaviour
     {
         transform.position = throwPoint.position;
         transform.rotation = Quaternion.Euler(90, 0, 0);
-
         rb.isKinematic = false;
-        rb.AddForce(transform.up * throwForce, ForceMode.Impulse);
+
+        RaycastHit hit;
+        if (Physics.Raycast(throwPoint.position, throwPoint.TransformDirection(Vector3.forward), out hit, throwDistance, ~ignoreLayer))
+        {
+            Debug.Log("Raycast Hit");
+            Debug.DrawRay(throwPoint.position, throwPoint.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+            Vector3 throwDirection = hit.point - transform.position;
+
+            rb.AddForce(throwDirection * throwForce, ForceMode.Impulse);
+        }
+        else
+        {
+            rb.AddForce(transform.up * throwForce, ForceMode.Impulse);
+        }
 
         transform.parent = null;
         needleThrown = true;
