@@ -84,7 +84,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: a172f7c1f4273a944a2f3d6c85e0ed60, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -115,14 +115,32 @@ LineRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 1
-        inSlope: 0
-        outSlope: 0
+        time: 0.018867493
+        value: 0.0930233
+        inSlope: 1.2101458
+        outSlope: 1.2101458
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.53403676
+      - serializedVersion: 3
+        time: 0.5046662
+        value: 0.5059005
+        inSlope: -0.017770227
+        outSlope: -0.017770227
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0.081398904
+        inSlope: -1.0784724
+        outSlope: -1.0784724
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.45709613
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -179,15 +197,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 119871d7d4fa4aa48911e981178da843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
   throwPoint: {fileID: 0}
   tetherPoint: {fileID: 550218512744194550}
   needleHolder: {fileID: 0}
+  throwDistance: 0
   throwForce: 0
   recallSpeed: 0
   recallDistance: 0
   startTime: 0
+  ignoreLayer:
+    serializedVersion: 2
+    m_Bits: 0
   needleThrown: 0
   recallingNeedle: 0
+  target: {fileID: 0}
+  closest: {fileID: 0}
+  targetLocations: []
+  targetRadius: 10
 --- !u!1 &3703770355317263224
 GameObject:
   m_ObjectHideFlags: 0
