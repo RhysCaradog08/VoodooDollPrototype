@@ -141,7 +141,7 @@ public class Needle : MonoBehaviour
         {
             if (col.tag == "Target")
             {
-                if (!targetLocations.Contains(col.transform) && col.transform.childCount < 1)
+                if (!targetLocations.Contains(col.transform) && !col.transform.GetComponentInChildren<Needle>())
                 {
                     targetLocations.Add(col.transform);
                 }
