@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Needle : MonoBehaviour
 {
-    Rigidbody rb;
+    public Rigidbody rb;
     LineRenderer line;
 
     public Transform throwPoint, tetherPoint, needleHolder;
@@ -12,7 +12,7 @@ public class Needle : MonoBehaviour
     [SerializeField] float throwDistance, throwForce, recallSpeed, recallDistance, startTime;
     public LayerMask ignoreLayer;
 
-    [SerializeField] bool needleThrown, recallingNeedle;
+    public bool needleThrown, recallingNeedle;
 
     private void Awake()
     {
@@ -40,18 +40,6 @@ public class Needle : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Mouse0))
-        {
-            if (!needleThrown)
-            {
-                ThrowNeedle();
-            }  
-            else if(needleThrown && rb.isKinematic)
-            {
-                recallingNeedle = true;
-            }
-        }
-
         if (recallingNeedle)
         {
             recallDistance = Vector3.Distance(transform.position, throwPoint.position);
@@ -74,7 +62,7 @@ public class Needle : MonoBehaviour
         else line.enabled = false;
     }
 
-    void ThrowNeedle()
+    public void ThrowNeedle()
     {
         transform.position = throwPoint.position;
         transform.rotation = Quaternion.Euler(90, 0, 0);
@@ -98,7 +86,7 @@ public class Needle : MonoBehaviour
         needleThrown = true;
     }
 
-    void RecallNeedle()
+    public void RecallNeedle()
     {
         rb.isKinematic = false;
 
