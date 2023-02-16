@@ -81,13 +81,13 @@ public class Needle : MonoBehaviour
         rb.isKinematic = false;
 
 
-        if (target != null)
+        if (target != null) //Throws Needle towards designated target
         {
             Vector3 throwDirection = target.position - transform.position;
 
             rb.AddForce(throwDirection * 5, ForceMode.Impulse);
         }
-        else
+        else // If no target is available throw Needle in Players forwrad vector 
         {
             rb.AddForce(transform.up * throwForce, ForceMode.Impulse);
         }
@@ -96,7 +96,7 @@ public class Needle : MonoBehaviour
         needleThrown = true;
     }
 
-    public void RecallNeedle()
+    public void RecallNeedle() //Lerps Needle back to throwPoint over time
     {
         targetLocations.Clear();
         target = null;
@@ -108,7 +108,7 @@ public class Needle : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, throwPoint.position, smoothing);
     }
 
-    void ResetNeedle()
+    void ResetNeedle() //Resets Needle back to needleHolder and rotates it accordingly
     {
         recallingNeedle = false;
 
@@ -122,18 +122,18 @@ public class Needle : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (needleThrown)
+        if (needleThrown) //Needle sticks in whatever object it collides with
         {
             rb.isKinematic = true;
         }
 
-        if(collision.gameObject.tag == "Target")
+        if(collision.gameObject.tag == "Target") //Needle becomes a child of whatever Target it collides with
         {
             transform.parent = collision.transform;
         }
     }
 
-    public void FindTarget()
+    public void FindTargets() //Generates an OverlapSphere to try and find "targets" within a radius
     {
         hitColliders = Physics.OverlapSphere(transform.position, targetRadius);
 
@@ -149,9 +149,9 @@ public class Needle : MonoBehaviour
         }
     }
 
-    public void FindClosestTarget()
+    public void FindClosestTarget() //Sorts targets in targetLocations to determine which target is closest to the player
     {
-        Transform bestTarget = null;
+        Transform closestTarget = null;
         float closestDistanceSqr = Mathf.Infinity;
         Vector3 currentPosition = transform.root.position;
         foreach (Transform potentialTarget in targetLocations)
@@ -161,11 +161,11 @@ public class Needle : MonoBehaviour
             if (dSqrToTarget < closestDistanceSqr)
             {
                 closestDistanceSqr = dSqrToTarget;
-                bestTarget = potentialTarget;
+                closestTarget = potentialTarget;
             }
         }
 
-        target = bestTarget;
+        target = closestTarget;
     }
 
     void OnDrawGizmosSelected()

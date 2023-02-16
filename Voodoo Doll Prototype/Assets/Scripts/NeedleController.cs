@@ -17,11 +17,11 @@ public class NeedleController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Mouse0))
+        if(Input.GetKeyDown(KeyCode.Mouse0)) //Operates Needle1
         {
             if(!needleScript1.needleThrown)
             {
-                needleScript1.FindTarget();
+                needleScript1.FindTargets();
                 needleScript1.FindClosestTarget();
                 needleScript1.ThrowNeedle();
             }
@@ -31,11 +31,11 @@ public class NeedleController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Mouse1))
+        if (Input.GetKeyDown(KeyCode.Mouse1)) //Operates Needle2
         {
             if (!needleScript2.needleThrown)
             {
-                needleScript2.FindTarget();
+                needleScript2.FindTargets();
                 needleScript2.FindClosestTarget();
                 needleScript2.ThrowNeedle();
             }
