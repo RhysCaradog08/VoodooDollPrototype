@@ -4838,8 +4838,8 @@ GameObject:
   m_Component:
   - component: {fileID: 267373648630307234}
   m_Layer: 0
-  m_Name: Electricty_Effect
-  m_TagString: Untagged
+  m_Name: Electricity_Effect
+  m_TagString: Electricity
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

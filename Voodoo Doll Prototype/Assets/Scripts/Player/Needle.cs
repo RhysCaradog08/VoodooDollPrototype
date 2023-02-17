@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Basics.ObjectPool;
 
 public class Needle : MonoBehaviour
 {
+    ElementalController elementControl;
+
     public Rigidbody rb;
     LineRenderer line;
 
@@ -13,7 +16,7 @@ public class Needle : MonoBehaviour
     Quaternion needleStartRotation;
     [SerializeField] float throwForce, recallSpeed, recallDistance, startTime;
     public LayerMask ignoreLayer;
-    public bool needleThrown, recallingNeedle;
+    public bool needleThrown, recallingNeedle, isTethered;
 
     [Header("FindTargets")]
     [SerializeField] Transform target;
@@ -21,8 +24,13 @@ public class Needle : MonoBehaviour
     Collider[] hitColliders;
     [SerializeField] float targetRadius;
 
+    [Header("Elemental Effects")]
+    [SerializeField] ParticleSystem elementFX;
+
     private void Awake()
     {
+        elementControl = FindObjectOfType<ElementalController>();
+
         rb = GetComponent<Rigidbody>();
         line = GetComponent<LineRenderer>();
     }
@@ -42,6 +50,7 @@ public class Needle : MonoBehaviour
 
         needleThrown = false;
         recallingNeedle = false;
+        isTethered = false;
     }
 
     // Update is called once per frame
@@ -125,11 +134,74 @@ public class Needle : MonoBehaviour
         if (needleThrown) //Needle sticks in whatever object it collides with
         {
             rb.isKinematic = true;
+            isTethered = true;
         }
 
         if(collision.gameObject.tag == "Target") //Needle becomes a child of whatever Target it collides with
         {
             transform.parent = collision.transform;
+
+            if(collision.gameObject.GetComponentInChildren<ParticleSystem>())
+            {
+                Debug.Log("Elemental Effect in children");
+                elementFX = collision.gameObject.GetComponentInChildren<ParticleSystem>();
+                
+                GetElementalEffect();
+            }
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        Debug.Log("On Collision Exit");
+        if(isTethered)
+        {
+            isTethered = false;
+        }
+
+        if (elementFX != null)
+        {
+            RemoveElementalEffect();
+            elementFX = null;
+        }
+    }
+
+    void GetElementalEffect()
+    {
+        if (elementFX.transform.parent.tag == "Electricity")
+        {
+            Debug.Log("Has Electricity " + elementControl.hasElectricity);
+            elementControl.hasElectricity = true;
+        }
+
+        if (elementFX.transform.parent.tag == "Fire")
+        {
+            Debug.Log("Has Fire");
+            elementControl.hasFire = true;
+        }
+
+        if (elementFX.transform.parent.tag == "Ice")
+        {
+            Debug.Log("Has Ice");
+            elementControl.hasIce = true;
+        }
+    }
+
+    void RemoveElementalEffect()
+    {
+        if (elementFX.transform.parent.tag == "Electricity")
+        {
+            elementControl.hasElectricity = false;
+        }
+
+        if (elementFX.transform.parent.tag == "Fire")
+        {
+            elementControl.hasFire = false;
+        }
+
+        if (elementFX.transform.parent.tag == "Ice")
+        {
+            elementControl.hasIce = false;
         }
     }
 
