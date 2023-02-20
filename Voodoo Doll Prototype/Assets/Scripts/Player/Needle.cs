@@ -129,40 +129,42 @@ public class Needle : MonoBehaviour
         needleThrown = false;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         if (needleThrown) //Needle sticks in whatever object it collides with
         {
             rb.isKinematic = true;
-            isTethered = true;
+            //isTethered = true;
         }
 
-        if(collision.gameObject.tag == "Target") //Needle becomes a child of whatever Target it collides with
+        if (other.gameObject.tag == "Target") //Needle becomes a child of whatever Target it collides with
         {
-            transform.parent = collision.transform;
+            transform.parent = other.transform;
 
-            if(collision.gameObject.GetComponentInChildren<ParticleSystem>())
+            if (other.gameObject.GetComponentInChildren<ParticleSystem>())
             {
                 Debug.Log("Elemental Effect in children");
-                elementFX = collision.gameObject.GetComponentInChildren<ParticleSystem>();
-                
+                elementFX = other.gameObject.GetComponentInChildren<ParticleSystem>();
+
                 GetElementalEffect();
             }
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit(Collider other)
     {
-        Debug.Log("On Collision Exit");
-        if(isTethered)
+        /*if(isTethered)
         {
             isTethered = false;
-        }
+        }*/
 
-        if (elementFX != null)
+        if(other.gameObject.tag == "Target")
         {
-            RemoveElementalEffect();
-            elementFX = null;
+            if (other.gameObject.GetComponentInChildren<ParticleSystem>())
+            {
+                RemoveElementalEffect();
+                elementFX = null;
+            }
         }
     }
 
@@ -176,13 +178,13 @@ public class Needle : MonoBehaviour
 
         if (elementFX.transform.parent.tag == "Fire")
         {
-            Debug.Log("Has Fire");
+            Debug.Log("Has Fire" + elementControl.hasFire);
             elementControl.hasFire = true;
         }
 
         if (elementFX.transform.parent.tag == "Ice")
         {
-            Debug.Log("Has Ice");
+            Debug.Log("Has Ice" + elementControl.hasIce);
             elementControl.hasIce = true;
         }
     }
