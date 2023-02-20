@@ -34,7 +34,7 @@ Transform:
   - {fileID: 1997988902581070040}
   - {fileID: 550218512744194550}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!54 &1592187339095134104
 Rigidbody:
@@ -201,10 +201,11 @@ MonoBehaviour:
   throwPoint: {fileID: 0}
   tetherPoint: {fileID: 550218512744194550}
   needleHolder: {fileID: 0}
-  throwForce: 0
-  recallSpeed: 0
-  recallDistance: 0
+  throwForce: 50
+  moveSpeed: 0.1
+  moveDistance: 0
   startTime: 0
+  smoothing: 0
   ignoreLayer:
     serializedVersion: 2
     m_Bits: 0

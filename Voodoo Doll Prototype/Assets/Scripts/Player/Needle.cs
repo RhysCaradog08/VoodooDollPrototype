@@ -14,7 +14,7 @@ public class Needle : MonoBehaviour
     [Header("Throw_RecallNeedle")]
     public Transform throwPoint, tetherPoint, needleHolder;
     Quaternion needleStartRotation;
-    [SerializeField] float throwForce, recallSpeed, recallDistance, startTime;
+    [SerializeField] float throwForce, moveSpeed, moveDistance, startTime, smoothing;
     public LayerMask ignoreLayer;
     public bool needleThrown, recallingNeedle, isTethered;
 
@@ -58,12 +58,12 @@ public class Needle : MonoBehaviour
     {
         if (recallingNeedle)
         {
-            recallDistance = Vector3.Distance(transform.position, throwPoint.position);
+            moveDistance = Vector3.Distance(transform.position, throwPoint.position);
             //Debug.Log("Recall Distance: " + recallDistance);
 
             RecallNeedle();
 
-            if(recallDistance < 1)
+            if(moveDistance < 1)
             {
                 ResetNeedle();
             }
@@ -71,8 +71,20 @@ public class Needle : MonoBehaviour
 
         if (needleThrown)
         {
+            if (target != null) //Throws Needle towards designated target
+            {
+                //Debug.Log("Has Target");
+                moveDistance = Vector3.Distance(transform.position, target.position);
+
+                if (moveDistance > 0.01)
+                {
+                    CalculateMoveDistance();
+                    transform.position = Vector3.Lerp(transform.position, target.position, smoothing);
+                }
+            }
+
             line.enabled = true;
-            line.SetPosition(0,throwPoint.position);
+            line.SetPosition(0, throwPoint.position);
             line.SetPosition(1, tetherPoint.position);
         }
         else line.enabled = false;
@@ -89,15 +101,9 @@ public class Needle : MonoBehaviour
         transform.rotation = Quaternion.Euler(90, 0, 0);
         rb.isKinematic = false;
 
-
-        if (target != null) //Throws Needle towards designated target
+        if (target == null) // If no target is available throw Needle in Players forward vector 
         {
-            Vector3 throwDirection = target.position - transform.position;
-
-            rb.AddForce(throwDirection * 5, ForceMode.Impulse);
-        }
-        else // If no target is available throw Needle in Players forwrad vector 
-        {
+            //Debug.Log("No Target");
             rb.AddForce(transform.up * throwForce, ForceMode.Impulse);
         }
 
@@ -112,8 +118,7 @@ public class Needle : MonoBehaviour
         transform.parent = null;
         rb.isKinematic = false;
 
-        float distanceCovered = (Time.time - startTime) * recallSpeed;
-        float smoothing = distanceCovered / recallDistance;
+        CalculateMoveDistance();
         transform.position = Vector3.Lerp(transform.position, throwPoint.position, smoothing);
     }
 
@@ -126,7 +131,16 @@ public class Needle : MonoBehaviour
         transform.rotation = needleStartRotation;
         rb.isKinematic = true;
 
+        moveDistance = 0;
+        smoothing = 0;
+
         needleThrown = false;
+    }
+
+    void CalculateMoveDistance()
+    {
+        float distanceCovered = (Time.time - startTime) * moveSpeed;
+        smoothing = distanceCovered / moveDistance;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -134,7 +148,7 @@ public class Needle : MonoBehaviour
         if (needleThrown) //Needle sticks in whatever object it collides with
         {
             rb.isKinematic = true;
-            //isTethered = true;
+            isTethered = true;
         }
 
         if (other.gameObject.tag == "Target") //Needle becomes a child of whatever Target it collides with
@@ -143,7 +157,7 @@ public class Needle : MonoBehaviour
 
             if (other.gameObject.GetComponentInChildren<ParticleSystem>())
             {
-                Debug.Log("Elemental Effect in children");
+                //Debug.Log("Elemental Effect in children");
                 elementFX = other.gameObject.GetComponentInChildren<ParticleSystem>();
 
                 GetElementalEffect();
@@ -153,10 +167,10 @@ public class Needle : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        /*if(isTethered)
+        if(isTethered)
         {
             isTethered = false;
-        }*/
+        }
 
         if(other.gameObject.tag == "Target")
         {
@@ -172,19 +186,19 @@ public class Needle : MonoBehaviour
     {
         if (elementFX.transform.parent.tag == "Electricity")
         {
-            Debug.Log("Has Electricity " + elementControl.hasElectricity);
+            //Debug.Log("Has Electricity " + elementControl.hasElectricity);
             elementControl.hasElectricity = true;
         }
 
         if (elementFX.transform.parent.tag == "Fire")
         {
-            Debug.Log("Has Fire" + elementControl.hasFire);
+            //Debug.Log("Has Fire" + elementControl.hasFire);
             elementControl.hasFire = true;
         }
 
         if (elementFX.transform.parent.tag == "Ice")
         {
-            Debug.Log("Has Ice" + elementControl.hasIce);
+           //Debug.Log("Has Ice" + elementControl.hasIce);
             elementControl.hasIce = true;
         }
     }
@@ -209,6 +223,7 @@ public class Needle : MonoBehaviour
 
     public void FindTargets() //Generates an OverlapSphere to try and find "targets" within a radius
     {
+        //Debug.Log("Find Targets");
         hitColliders = Physics.OverlapSphere(transform.position, targetRadius);
 
         foreach (Collider col in hitColliders)
@@ -225,6 +240,7 @@ public class Needle : MonoBehaviour
 
     public void FindClosestTarget() //Sorts targets in targetLocations to determine which target is closest to the player
     {
+        //Debug.Log("Find Closest Target");
         Transform closestTarget = null;
         float closestDistanceSqr = Mathf.Infinity;
         Vector3 currentPosition = transform.root.position;
