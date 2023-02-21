@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class BasicMovement : MonoBehaviour
 {
-    [SerializeField]CharacterController cc;
-    [SerializeField]Animator playerAnim;
+    [SerializeField] CharacterController cc;
+    [SerializeField] Animator playerAnim;
 
     public float moveSpeed, rotationSpeed;
 
@@ -37,5 +37,11 @@ public class BasicMovement : MonoBehaviour
         cc.Move(movePlayer * moveSpeed * Time.deltaTime);
 
         transform.rotation = Quaternion.LookRotation(movePlayer);
+
+        if(Input.GetKeyDown(KeyCode.Mouse2))
+        {
+            playerAnim.SetTrigger("Attack");
+        }
+        else playerAnim.ResetTrigger("Attack");
     }
 }

@@ -1012,6 +1012,23 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8691343252479041752, guid: 93ae69c4dd5428740b91753737da0232, type: 3}
   m_PrefabInstance: {fileID: 6520954378923455366}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &865219335 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1102859231459432745, guid: 93ae69c4dd5428740b91753737da0232, type: 3}
+  m_PrefabInstance: {fileID: 6520954378923455366}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &865219338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865219335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1135341dd30daa44fa35c14b5e6124f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1574,6 +1591,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1614592189}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1762837677 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3657889620987792696, guid: 93ae69c4dd5428740b91753737da0232, type: 3}
+  m_PrefabInstance: {fileID: 6520954378923455366}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1779422391
 GameObject:
   m_ObjectHideFlags: 0
@@ -1608,6 +1630,11 @@ Transform:
   m_Father: {fileID: 1504288144}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1791313680 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5053358570623924020, guid: 93ae69c4dd5428740b91753737da0232, type: 3}
+  m_PrefabInstance: {fileID: 6520954378923455366}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1977564282 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 267373648630307234, guid: 5b28a8cb457a50c44800031f8e9fb6e4, type: 3}
@@ -1919,6 +1946,14 @@ PrefabInstance:
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[0].outWeight
       value: 0.43809524
       objectReference: {fileID: 0}
+    - target: {fileID: 5744720006200715541, guid: 93ae69c4dd5428740b91753737da0232, type: 3}
+      propertyPath: arm
+      value: 
+      objectReference: {fileID: 1791313680}
+    - target: {fileID: 5744720006200715541, guid: 93ae69c4dd5428740b91753737da0232, type: 3}
+      propertyPath: mechanics
+      value: 
+      objectReference: {fileID: 1762837677}
     - target: {fileID: 6815081258243403524, guid: 93ae69c4dd5428740b91753737da0232, type: 3}
       propertyPath: m_Name
       value: Needle 2
@@ -2116,6 +2151,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3924635544927595283, guid: 93ae69c4dd5428740b91753737da0232, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2104478284}
+    - targetCorrespondingSourceObject: {fileID: 1102859231459432745, guid: 93ae69c4dd5428740b91753737da0232, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 865219338}
   m_SourcePrefab: {fileID: 100100000, guid: 93ae69c4dd5428740b91753737da0232, type: 3}
 --- !u!1001 &6617957548538363947
 PrefabInstance:
