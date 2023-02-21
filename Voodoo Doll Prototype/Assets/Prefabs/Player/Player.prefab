@@ -1009,6 +1009,14 @@ PrefabInstance:
       value: Needle
       objectReference: {fileID: 0}
     - target: {fileID: 4776905936190012897, guid: 49509bd55482e5b4a8a59702a3623dc7, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 8460314742478500170}
+    - target: {fileID: 4776905936190012897, guid: 49509bd55482e5b4a8a59702a3623dc7, type: 3}
+      propertyPath: otherNeedle
+      value: 
+      objectReference: {fileID: 3521666886178260176}
+    - target: {fileID: 4776905936190012897, guid: 49509bd55482e5b4a8a59702a3623dc7, type: 3}
       propertyPath: needleHolder
       value: 
       objectReference: {fileID: 8691343252479041752}
@@ -1061,6 +1069,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49509bd55482e5b4a8a59702a3623dc7, type: 3}
+--- !u!114 &7432980349396671365 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4776905936190012897, guid: 49509bd55482e5b4a8a59702a3623dc7, type: 3}
+  m_PrefabInstance: {fileID: 2697016934401058404}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 119871d7d4fa4aa48911e981178da843, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &9132701692739035218 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6615899253915092534, guid: 49509bd55482e5b4a8a59702a3623dc7, type: 3}
@@ -1078,6 +1097,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Needle (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4776905936190012897, guid: 49509bd55482e5b4a8a59702a3623dc7, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 8460314742478500170}
+    - target: {fileID: 4776905936190012897, guid: 49509bd55482e5b4a8a59702a3623dc7, type: 3}
+      propertyPath: otherNeedle
+      value: 
+      objectReference: {fileID: 7432980349396671365}
     - target: {fileID: 4776905936190012897, guid: 49509bd55482e5b4a8a59702a3623dc7, type: 3}
       propertyPath: needleHolder
       value: 
@@ -1136,3 +1163,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6615899253915092534, guid: 49509bd55482e5b4a8a59702a3623dc7, type: 3}
   m_PrefabInstance: {fileID: 8256650610676742449}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3521666886178260176 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4776905936190012897, guid: 49509bd55482e5b4a8a59702a3623dc7, type: 3}
+  m_PrefabInstance: {fileID: 8256650610676742449}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 119871d7d4fa4aa48911e981178da843, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

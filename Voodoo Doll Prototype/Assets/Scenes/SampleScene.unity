@@ -240,9 +240,10 @@ GameObject:
   - component: {fileID: 64929099}
   - component: {fileID: 64929098}
   - component: {fileID: 64929097}
-  m_Layer: 0
+  - component: {fileID: 64929100}
+  m_Layer: 8
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -335,6 +336,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 64929095}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &64929100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64929095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eccb617ee1111e1428042931cfb211c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canAddElement: 0
 --- !u!1 &141332675 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6815081258243403524, guid: 93ae69c4dd5428740b91753737da0232, type: 3}
@@ -671,9 +685,10 @@ GameObject:
   - component: {fileID: 453403056}
   - component: {fileID: 453403055}
   - component: {fileID: 453403054}
-  m_Layer: 0
+  - component: {fileID: 453403057}
+  m_Layer: 8
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -764,6 +779,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 453403052}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &453403057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 453403052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eccb617ee1111e1428042931cfb211c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canAddElement: 0
 --- !u!1 &474838780
 GameObject:
   m_ObjectHideFlags: 0
@@ -815,9 +843,10 @@ GameObject:
   - component: {fileID: 579506840}
   - component: {fileID: 579506839}
   - component: {fileID: 579506838}
-  m_Layer: 0
+  - component: {fileID: 579506841}
+  m_Layer: 8
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -908,6 +937,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 579506836}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &579506841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579506836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eccb617ee1111e1428042931cfb211c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canAddElement: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1846,6 +1888,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3521666886178260176, guid: 93ae69c4dd5428740b91753737da0232, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 2104478279}
     - target: {fileID: 3521666886178260176, guid: 93ae69c4dd5428740b91753737da0232, type: 3}
       propertyPath: throwForce
       value: 50

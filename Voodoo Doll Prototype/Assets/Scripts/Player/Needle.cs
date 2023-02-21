@@ -7,12 +7,14 @@ using Basics.ObjectPool;
 public class Needle : MonoBehaviour
 {
     ElementalController elementControl;
+    [SerializeField] InteractiveObject interactObj;
+    [SerializeField] Needle otherNeedle;
 
     public Rigidbody rb;
     LineRenderer line;
 
     [Header("Throw_RecallNeedle")]
-    public Transform throwPoint, tetherPoint, needleHolder;
+    public Transform throwPoint, tetherPoint, needleHolder, player;
     Quaternion needleStartRotation;
     [SerializeField] float throwForce, moveSpeed, moveDistance, startTime, smoothing;
     public bool needleThrown, recallingNeedle, isTethered;
@@ -25,6 +27,8 @@ public class Needle : MonoBehaviour
 
     [Header("Elemental Effects")]
     [SerializeField] ParticleSystem elementFX;
+    GameObject electricity, fire, ice;
+    Transform particlePosition;
 
     private void Awake()
     {
@@ -81,12 +85,31 @@ public class Needle : MonoBehaviour
             }
 
             line.enabled = true;
-            line.SetPosition(0, throwPoint.position);
+            line.SetPosition(0, player.position);
             line.SetPosition(1, tetherPoint.position);
         }
         else line.enabled = false;
+        
+        if(isTethered)
+        {
+            if(!otherNeedle.isTethered)
+            {
+                if (interactObj != null)
+                {
+                    RemoveElementFromObject();
+                }
+            }
+            
+            if(otherNeedle.isTethered) 
+            {
+                if (interactObj.canAddElement)
+                {
+                    AddElementToObject();
+                }
+            }
+        }
 
-        foreach(Transform t in targetLocations)
+        foreach (Transform t in targetLocations)
         {
             Debug.DrawLine(throwPoint.position, t.position, Color.red);
         }
@@ -159,24 +182,44 @@ public class Needle : MonoBehaviour
 
                 GetElementalEffect();
             }
+
+            if (other.gameObject.GetComponent<InteractiveObject>())
+            {
+                interactObj = other.gameObject.GetComponent<InteractiveObject>();
+                particlePosition = other.transform;
+
+                /*if (interactObj.canAddElement && otherNeedle.isTethered)
+                    {
+                        particlePosition = other.transform;
+                        AddElementToObject();
+                    }*/
+            }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if(isTethered)
+        if (isTethered)
         {
             isTethered = false;
         }
 
-        if(other.gameObject.tag == "Target")
+        if (other.gameObject.tag == "Target")
         {
+            if (interactObj != null)
+            {
+                RemoveElementFromObject();
+                particlePosition = null;
+                interactObj = null;
+            }
+
             if (other.gameObject.GetComponentInChildren<ParticleSystem>())
             {
                 RemoveElementalEffect();
                 elementFX = null;
             }
         }
+
     }
 
     void GetElementalEffect()
@@ -218,10 +261,58 @@ public class Needle : MonoBehaviour
         }
     }
 
+    void AddElementToObject()
+    {
+        if(elementControl.hasElectricity)
+        {
+            if (electricity == null)
+            {
+                electricity = ObjectPoolManager.instance.CallObject("Electricty Effect", particlePosition, particlePosition.position, Quaternion.identity);
+            }
+        }
+
+        if (elementControl.hasFire)
+        {
+            if (fire == null)
+            {
+                fire = ObjectPoolManager.instance.CallObject("Fire Effect", particlePosition, particlePosition.position, Quaternion.identity);
+            }
+        }
+
+        if(elementControl.hasIce)
+        {
+            if (ice == null)
+            {
+                ice = ObjectPoolManager.instance.CallObject("Ice Effect", particlePosition, particlePosition.position, Quaternion.identity);
+            }
+        }
+    }
+
+    void RemoveElementFromObject()
+    {
+        if (electricity != null)
+        {
+            ObjectPoolManager.instance.RecallObject(electricity);
+            electricity = null;
+        }
+
+        if (fire != null)
+        {
+            ObjectPoolManager.instance.RecallObject(fire);
+            fire = null;
+        }
+
+        if (ice != null)
+        {
+            ObjectPoolManager.instance.RecallObject(ice);
+            ice = null;
+        }
+    }
+
     public void FindTargets() //Generates an OverlapSphere to try and find "targets" within a radius
     {
         //Debug.Log("Find Targets");
-        hitColliders = Physics.OverlapSphere(transform.position, targetRadius);
+        hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y, transform.position.z + targetRadius), targetRadius);
 
         foreach (Collider col in hitColliders)
         {
@@ -258,6 +349,6 @@ public class Needle : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, targetRadius);
+        Gizmos.DrawWireSphere(new Vector3(transform.position.x, transform.position.y, transform.position.z + targetRadius), targetRadius);
     }
 }
