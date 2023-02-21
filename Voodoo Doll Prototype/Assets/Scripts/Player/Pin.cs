@@ -31,21 +31,19 @@ public class Pin : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(attackDelay > 0)
+        if(attackDelay > 0) //Attack delay stops player from spamming attack
         {
             attackDelay -= Time.deltaTime;
         }
         if (attackDelay <= 0)
         {
             attackDelay = 0;
-            //isAttacking = false;
         }
 
         if(Input.GetKeyDown(KeyCode.Mouse2))
         {
             if(!isAttacking && attackDelay <=0)
             {
-                //isAttacking = true;
                 attackDelay = 1;
             }
         }

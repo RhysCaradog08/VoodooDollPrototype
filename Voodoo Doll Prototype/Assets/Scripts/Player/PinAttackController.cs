@@ -6,6 +6,7 @@ public class PinAttackController : MonoBehaviour
 {
     Pin pin;
 
+    //Script for setting Pin attacking bool in animation event
     private void Awake()
     {
         pin = FindObjectOfType<Pin>();

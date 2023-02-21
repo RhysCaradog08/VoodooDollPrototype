@@ -15,7 +15,6 @@ public class Needle : MonoBehaviour
     public Transform throwPoint, tetherPoint, needleHolder;
     Quaternion needleStartRotation;
     [SerializeField] float throwForce, moveSpeed, moveDistance, startTime, smoothing;
-    public LayerMask ignoreLayer;
     public bool needleThrown, recallingNeedle, isTethered;
 
     [Header("FindTargets")]
@@ -39,8 +38,6 @@ public class Needle : MonoBehaviour
     void Start()
     {
         rb.isKinematic = true;
-        Physics.IgnoreLayerCollision(6, 7);
-
         line.enabled = false;
 
         transform.position = needleHolder.position;
