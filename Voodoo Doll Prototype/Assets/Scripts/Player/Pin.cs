@@ -4,25 +4,28 @@ using UnityEngine;
 
 public class Pin : MonoBehaviour
 {
+    ElementalController element;
+
     [SerializeField] Transform mechanics, arm;
     Vector3 restPosition, attackPosition;
     Quaternion restRotation;
     [SerializeField]float attackDelay;
-    TrailRenderer trail;
+    [SerializeField] TrailRenderer neutral, electricty, fire, ice;
 
     public bool isAttacking;
 
     private void Awake()
     {
-        trail = GetComponentInChildren<TrailRenderer>();
+        element = FindObjectOfType<ElementalController>(); 
+        neutral = GetComponentInChildren<TrailRenderer>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        restPosition = transform.position;
+        restPosition = transform.localPosition;
         restRotation = transform.rotation;
-        trail.enabled = false;
+        neutral.enabled = false;
     }
 
     // Update is called once per frame
@@ -50,11 +53,11 @@ public class Pin : MonoBehaviour
         if(isAttacking)
         {
             SetAttackPosition();
-            trail.enabled = true;
+            SetTrailEffect();
         }
         else
         {
-            trail.enabled = false;
+            DisableTrailEffect();
             ResetPinPosition();
         }
     }
@@ -69,7 +72,42 @@ public class Pin : MonoBehaviour
     void ResetPinPosition()
     {
         transform.parent = mechanics;
-        transform.position = restPosition;
-        transform.rotation = restRotation;
+        transform.localPosition = restPosition;
+        transform.localRotation = restRotation;
+    }
+
+    void SetTrailEffect()
+    {
+        if (!element.hasElectricity && !element.hasFire && !element.hasIce)
+        {
+            neutral.enabled = true;
+        }
+        else neutral.enabled = false;
+
+        if (element.hasElectricity)
+        {
+            electricty.enabled = true;
+        }
+        else electricty.enabled = false;
+
+        if (element.hasFire)
+        {
+            fire.enabled = true;
+        }
+        else fire.enabled = false;
+
+        if (element.hasIce)
+        {
+            ice.enabled = true;
+        }
+        else ice.enabled = false;
+    }
+
+    void DisableTrailEffect()
+    {
+        neutral.enabled = false;
+        electricty.enabled = false;
+        fire.enabled = false;
+        ice.enabled = false;
     }
 }
