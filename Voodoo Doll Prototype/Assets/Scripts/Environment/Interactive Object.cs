@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InteractiveObject : MonoBehaviour
 {
-    public bool canAddElement;
+    public bool canAddElement, needsElectricty, needsFire, needsIce;
 
     // Start is called before the first frame update
     void Start()

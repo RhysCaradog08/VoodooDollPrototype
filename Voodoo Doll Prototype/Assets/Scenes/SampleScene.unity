@@ -349,6 +349,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canAddElement: 0
+  needsElectricty: 1
+  needsFire: 0
+  needsIce: 0
 --- !u!1 &141332675 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6815081258243403524, guid: 93ae69c4dd5428740b91753737da0232, type: 3}
@@ -792,6 +795,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canAddElement: 0
+  needsElectricty: 0
+  needsFire: 0
+  needsIce: 1
 --- !u!1 &474838780
 GameObject:
   m_ObjectHideFlags: 0
@@ -950,6 +956,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canAddElement: 0
+  needsElectricty: 0
+  needsFire: 1
+  needsIce: 0
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

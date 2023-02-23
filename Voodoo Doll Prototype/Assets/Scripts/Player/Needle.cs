@@ -92,15 +92,15 @@ public class Needle : MonoBehaviour
         
         if(isTethered)
         {
-            if(!otherNeedle.isTethered)
+            if(interactObj != null && !otherNeedle.isTethered)
             {
-                if (interactObj != null)
+                if (interactObj.canAddElement)
                 {
                     RemoveElementFromObject();
                 }
             }
             
-            if(otherNeedle.isTethered) 
+            if(interactObj != null && otherNeedle.isTethered) 
             {
                 if (interactObj.canAddElement)
                 {
@@ -175,6 +175,12 @@ public class Needle : MonoBehaviour
         {
             transform.parent = other.transform;
 
+            if (other.gameObject.GetComponent<InteractiveObject>())
+            {
+                interactObj = other.gameObject.GetComponent<InteractiveObject>();
+                particlePosition = other.transform;
+            }
+
             if (other.gameObject.GetComponentInChildren<ParticleSystem>())
             {
                 //Debug.Log("Elemental Effect in children");
@@ -183,17 +189,6 @@ public class Needle : MonoBehaviour
                 GetElementalEffect();
             }
 
-            if (other.gameObject.GetComponent<InteractiveObject>())
-            {
-                interactObj = other.gameObject.GetComponent<InteractiveObject>();
-                particlePosition = other.transform;
-
-                /*if (interactObj.canAddElement && otherNeedle.isTethered)
-                    {
-                        particlePosition = other.transform;
-                        AddElementToObject();
-                    }*/
-            }
         }
     }
 
@@ -208,7 +203,11 @@ public class Needle : MonoBehaviour
         {
             if (interactObj != null)
             {
-                RemoveElementFromObject();
+                if (interactObj.canAddElement)
+                {
+                    RemoveElementFromObject();
+                }
+
                 particlePosition = null;
                 interactObj = null;
             }
@@ -269,6 +268,14 @@ public class Needle : MonoBehaviour
             {
                 electricity = ObjectPoolManager.instance.CallObject("Electricty Effect", particlePosition, particlePosition.position, Quaternion.identity);
             }
+
+            if (electricity != null)
+            {
+                if (interactObj.needsElectricty)
+                {
+                    interactObj.canAddElement = false;
+                }
+            }
         }
 
         if (elementControl.hasFire)
@@ -277,13 +284,29 @@ public class Needle : MonoBehaviour
             {
                 fire = ObjectPoolManager.instance.CallObject("Fire Effect", particlePosition, particlePosition.position, Quaternion.identity);
             }
+
+            if (fire != null)
+            {
+                if(interactObj.needsFire)
+                {
+                    interactObj.canAddElement = false;
+                }
+            }
         }
 
-        if(elementControl.hasIce)
+        if (elementControl.hasIce)
         {
             if (ice == null)
             {
                 ice = ObjectPoolManager.instance.CallObject("Ice Effect", particlePosition, particlePosition.position, Quaternion.identity);
+            }
+
+            if (ice != null)
+            {
+                if (interactObj.needsIce)
+                {
+                    interactObj.canAddElement = false;
+                }
             }
         }
     }
