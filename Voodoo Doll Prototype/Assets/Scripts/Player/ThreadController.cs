@@ -5,6 +5,7 @@ using UnityEngine;
 public class ThreadController : MonoBehaviour
 {
     Needle needle;
+    ElementalController element;
 
     [SerializeField] LineRenderer line;
 
@@ -15,6 +16,7 @@ public class ThreadController : MonoBehaviour
     private void Awake()
     {
         needle = GetComponent<Needle>();
+        element = FindObjectOfType<ElementalController>();
         line = threads[0].GetComponentInChildren<LineRenderer>();
     }
 
@@ -29,6 +31,32 @@ public class ThreadController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(!element.hasElectricity && !element.hasFire && !element.hasIce)
+        {
+            line.enabled = false;
+
+            line = threads[0].GetComponentInChildren<LineRenderer>();
+            line.enabled = true;
+        }
+
+        if(element.hasElectricity)
+        {
+            line.enabled = false;
+
+            line = threads[1].GetComponentInChildren<LineRenderer>();
+            line.enabled = true;
+        }
+
+        if(element.hasFire)
+        {
+            line.enabled = false;
+
+            line = threads[2].GetComponentInChildren<LineRenderer>();
+            line.enabled = true;
+        }
+
+
+
         if (needle.needleThrown)
         {
             line.enabled = true;
