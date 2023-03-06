@@ -33,10 +33,10 @@ public class ThreadController : MonoBehaviour
     {
         if(!element.hasElectricity && !element.hasFire && !element.hasIce)
         {
-            line.enabled = false;
+            line.enabled = false; //Disables previous Line Renderer.
 
-            line = threads[0].GetComponentInChildren<LineRenderer>();
-            line.enabled = true;
+            line = threads[0].GetComponentInChildren<LineRenderer>(); //sets Line Renderer to be whatever elemeent the player is/is not thethered to.
+            line.enabled = true; //Enables new Line Renderer.
         }
 
         if(element.hasElectricity)
@@ -55,7 +55,13 @@ public class ThreadController : MonoBehaviour
             line.enabled = true;
         }
 
+        /*if(element.hasIce)
+        {
+            line.enabled = false;
 
+            line = threads[2].GetComponentInChildren<LineRenderer>();
+            line.enabled = true;
+        }*/
 
         if (needle.needleThrown)
         {
