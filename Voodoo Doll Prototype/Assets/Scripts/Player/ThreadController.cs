@@ -55,13 +55,13 @@ public class ThreadController : MonoBehaviour
             line.enabled = true;
         }
 
-        /*if(element.hasIce)
+        if(element.hasIce)
         {
             line.enabled = false;
 
-            line = threads[2].GetComponentInChildren<LineRenderer>();
+            line = threads[3].GetComponentInChildren<LineRenderer>();
             line.enabled = true;
-        }*/
+        }
 
         if (needle.needleThrown)
         {
@@ -69,7 +69,7 @@ public class ThreadController : MonoBehaviour
             line.SetPosition(0, player.position);
             line.SetPosition(1, tetherPoint.position);
 
-            Debug.DrawLine(player.position, tetherPoint.position, Color.yellow);
+            //Debug.DrawLine(player.position, tetherPoint.position, Color.yellow);
         }
         else line.enabled = false;
     }

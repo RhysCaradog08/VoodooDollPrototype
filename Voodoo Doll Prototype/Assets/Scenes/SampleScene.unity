@@ -1840,12 +1840,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb29015e73ca2cd4ab4c515112aeadb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  line: {fileID: 0}
-  velocity: 0
-  angle: 0
-  resolution: 0
-  g: 0
-  radianAngle: 0
 --- !u!120 &1645668376
 LineRenderer:
   serializedVersion: 2

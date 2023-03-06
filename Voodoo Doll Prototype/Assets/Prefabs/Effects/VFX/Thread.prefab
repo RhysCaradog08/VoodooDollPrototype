@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!120 &7567364815628455755
 LineRenderer:
@@ -79,22 +79,22 @@ LineRenderer:
   - {x: 0, y: 2.25, z: 1.249995}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 1
+    widthMultiplier: 2
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
         value: 0.0813961
-        inSlope: 1.1253759
-        outSlope: 1.1253759
+        inSlope: 2.6049285
+        outSlope: 2.6049285
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.43809524
+        outWeight: 0.31385753
       - serializedVersion: 3
-        time: 0.49528298
-        value: 0.5
+        time: 0.49952492
+        value: 1
         inSlope: 0.26411965
         outSlope: 0.26411965
         tangentMode: 0
@@ -104,11 +104,11 @@ LineRenderer:
       - serializedVersion: 3
         time: 0.99528295
         value: 0.09302327
-        inSlope: -1.185152
-        outSlope: -1.185152
+        inSlope: -2.5589767
+        outSlope: -2.5589767
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.49056605
+        inWeight: 0.27253917
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
