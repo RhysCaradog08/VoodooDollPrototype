@@ -14,7 +14,7 @@ public class Needle : MonoBehaviour
     LineRenderer line;
 
     [Header("Throw_RecallNeedle")]
-    public Transform throwPoint, tetherPoint, needleHolder, player;
+    public Transform throwPoint, needleHolder;
     Quaternion needleStartRotation;
     [SerializeField] float throwForce, moveSpeed, moveDistance, startTime, smoothing;
     public bool needleThrown, recallingNeedle, isTethered;
@@ -35,14 +35,12 @@ public class Needle : MonoBehaviour
         elementControl = FindObjectOfType<ElementalController>();
 
         rb = GetComponent<Rigidbody>();
-        line = GetComponent<LineRenderer>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
         rb.isKinematic = true;
-        line.enabled = false;
 
         transform.position = needleHolder.position;
         needleStartRotation = transform.rotation;
@@ -83,12 +81,7 @@ public class Needle : MonoBehaviour
                     transform.position = Vector3.Lerp(transform.position, target.position, smoothing);
                 }
             }
-
-            line.enabled = true;
-            line.SetPosition(0, player.position);
-            line.SetPosition(1, tetherPoint.position);
         }
-        else line.enabled = false;
         
         if(isTethered)
         {
